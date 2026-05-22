@@ -21,8 +21,16 @@ func Connect() {
 	if err != nil {
 		panic(err)
 	}
-	DB = d
 
+	DB = d
+	sqlDB, err := DB.DB()
+	if err != nil {
+		panic(err)
+	}
+
+	if err := sqlDB.Ping(); err != nil {
+		panic(err)
+	}
 	log.Println("Database connected successfully")
 }
 

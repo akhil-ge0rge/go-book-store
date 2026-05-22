@@ -17,6 +17,11 @@ type Book struct {
 
 func InitBookModel() {
 	db = config.GetDB()
+
+	if db == nil {
+		panic("database not initialized")
+	}
+
 	if err := db.AutoMigrate(&Book{}); err != nil {
 		panic(err)
 	}
@@ -43,10 +48,10 @@ func GetAllBooks() ([]Book, error) {
 	return books, nil
 }
 
-func GetBookById(Id int64) (*Book, error) {
+func GetBookById(id int64) (*Book, error) {
 	var book Book
 
-	result := db.Where("id = ?", Id).First(&book)
+	result := db.First(&book, id)
 
 	if result.Error != nil {
 		return nil, result.Error
@@ -55,9 +60,9 @@ func GetBookById(Id int64) (*Book, error) {
 	return &book, nil
 }
 
-func DeleteBook(Id int64) (*Book, error) {
+func DeleteBook(id int64) (*Book, error) {
 	var book Book
-	if err := db.First(&book, Id).Error; err != nil {
+	if err := db.First(&book, id).Error; err != nil {
 		return nil, err
 	}
 
