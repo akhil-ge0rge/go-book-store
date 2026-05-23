@@ -9,7 +9,7 @@ import (
 
 var DB *gorm.DB
 
-const dsn = "akhil:akhil123@tcp(localhost:3306)/simplerest?charset=utf8mb4&parseTime=True&loc=Local"
+const dsn = "akhil:akhil123@tcp(127.0.0.1:3306)/simplerest?charset=utf8mb4&parseTime=True&loc=Local"
 
 func Connect() {
 
